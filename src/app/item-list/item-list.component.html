@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-2 d-grid">
+      <button type="button" class="btn btn-success" [routerLink]="['/item_form']">Új könyv</button>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-8 d-grid">
+      <input type="text" class="form-control" [(ngModel)]="pattern" [ngModelOptions]="{ standalone: true }" />
+    </div>
+    <div class="col-2">
+      <select class="form-select" [(ngModel)]="pattern_type" [ngModelOptions]="{ standalone: true }">
+        <option value="TITLE" selected>Cím</option>
+        <option value="AUTHOR">Szerző</option>
+        <option value="DELAY">Késés</option>
+      </select>
+    </div>
+    <div class="col-2 d-grid">
+      <button type="button" class="btn btn-primary" (click)="search()">Keresés</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt-2">
+  <table class="table table-success table-striped">
+    <thead>
+      <tr>
+        <th>Típus</th>
+        <th>Szerző</th>
+        <th>Cím</th>
+        <th>Bekerülés</th>
+        <th>Státusz</th>
+        <th>Kölcsönző</th>
+        <th>Kikölcsönözve</th>
+        <th *ngIf="pattern_type == 'DELAY'">Késés</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.item_type }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.in_date | date: 'yyyy.MM.dd' }}</td>
+        <td>{{ item.status }}</td>
+
+        <td>
+          <button
+            class="btn btn-info"
+            type="button"
+            *ngIf="item.member"
+            [routerLink]="['/rent_form']"
+            [queryParams]="{ id: item.member._id }"
+          >
+            {{ item.member.name }}
+          </button>
+        </td>
+
+        <td>{{ item.rent_from | date: 'yyyy.MM.dd' }}</td>
+
+        <td *ngIf="pattern_type == 'DELAY'">
+          {{ getDelay(item.rent_from) }} nap
+        </td>
+
+        <td>
+          <button
+            class="btn btn-warning"
+            type="button"
+            [routerLink]="['/item_form']"
+            [queryParams]="{ id: item._id }"
+          >
+            Módosít
+          </button>
+        </td>
+
+        <td>
+          <button
+            class="btn btn-primary"
+            type="button"
+            *ngIf="item.member"
+            (click)="back(item)"
+          >
+            Visszahoz
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

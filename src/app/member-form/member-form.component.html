@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-2 d-grid">
+            <button type="button" class="btn btn-secondary" [routerLink]="['']">Vissza</button>
+        </div>
+        <div class="col-8"></div>
+        <div class="col-2 d-grid" *ngIf="memberForm.get('_id')?.value">
+            <button class="btn btn-danger" type="button" (click)="deleteMember()">Törlés</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col">
+            <h2 *ngIf="!memberForm.get('_id')?.value">Új tag</h2>
+            <h2 *ngIf="memberForm.get('_id')?.value">{{ memberForm.get('name')?.value }}</h2>
+        </div>
+    </div>
+    <form [formGroup]="memberForm">
+        <div class="row mt-2">
+            <div class="col">
+                <label for="name" class="form-label">Név:</label>
+                <input class="form-control" type="text" id="name" formControlName="name">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="phone" class="form-label">Telefon:</label>
+                <input class="form-control" type="text" id="phone" formControlName="phone">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="pid" class="form-label">Személyigazolvány száma:</label>
+                <input class="form-control" type="text" id="pid" formControlName="pid">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="address" class="form-label">Lakcím:</label>
+                <input class="form-control" type="text" id="address" formControlName="address">
+            </div>
+        </div>
+        <div class="row mt-2">   
+            <div class="col-2 d-grid">
+                <button class="btn btn-primary" type="button" (click)="addMember()">Mentés</button>
+            </div>
+        </div>
+    </form>
+</div>

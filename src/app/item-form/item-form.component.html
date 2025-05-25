@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-2 d-grid">
+            <button type="button" class="btn btn-secondary" [routerLink]="['/item_list']">Vissza</button>
+        </div>
+        <div class="col-8"></div>
+        <div class="col-2 d-grid" *ngIf="id">
+            <button class="btn btn-danger" type="button" (click)="deleteItem()">Törlés</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col">
+            <h2 *ngIf="!id">Új könyv/CD/kotta</h2>
+            <h2 *ngIf="id">{{ title }}</h2>
+        </div>
+    </div>
+    <form [formGroup]="itemForm">
+        <div class="row mt-2">
+            <div class="col">
+                <label for="type" class="form-label">Típus:</label>
+                <select class="form-select" id="type" formControlName="item_type">
+                    <option value="CD">CD</option>
+                    <option value="Könyv">Könyv</option>
+                    <option value="Kotta">Kotta</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="author" class="form-label">Szerző:</label>
+                <input class="form-control" type="text" id="author" formControlName="author">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="title" class="form-label">Cím:</label>
+                <input class="form-control" type="text" id="title" formControlName="title">
+            </div>
+        </div>
+        <div class="row mt-2">   
+            <div class="col-2 d-grid">
+                <button class="btn btn-primary" type="button" (click)="addItem()">Mentés</button>
+            </div>
+        </div>
+    </form>
+</div>

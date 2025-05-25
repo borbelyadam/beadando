@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-2 d-grid">
+            <button type="button" class="btn btn-success" [routerLink]="['/member_form']">Új tag</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-9 d-grid">
+            <input type="text" class="form-control" [(ngModel)]="pattern" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-1">
+            <select class="form-select" [(ngModel)]="pattern_type" [ngModelOptions]="{standalone: true}">
+                <option value="ID" selected>Id</option>
+                <option value="NAME">Név</option>
+                <option value="PID">Szig. szám</option>
+            </select>
+        </div>
+        <div class="col-2 d-grid">
+            <button type="button" class="btn btn-primary" (click)="search()">Keresés</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Telefon</th>
+                <th>Szig. szám</th>
+                <th>Cím</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of members">
+                <td>{{ member.name }}</td>
+                <td>{{ member.phone }}</td>
+                <td>{{ member.pid }}</td>
+                <td>{{ member.address }}</td>
+                <td>
+          <button
+            class="btn btn-warning"
+            type="button"
+            [routerLink]="['/member_form']"
+            [queryParams]="{ id: member._id }"
+          >
+            Módosít
+          </button>
+        </td>
+                <td><button class="btn btn-info" type="button" [routerLink]="['/rent_form']" [queryParams]="{id: member._id}">Kölcsönöz</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
