@@ -25,7 +25,7 @@ export class MemberFormComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.queryParams['id'];
 
     if (id) {
       const member = await this.memberService.loadOne(id);
@@ -49,7 +49,7 @@ export class MemberFormComponent implements OnInit {
   async deleteMember() {
     const data = { ...this.memberForm.value };
     data.deleted = true;
-    await this.memberService.updateMember(data);
+  await this.memberService.updateMember(data);
     this.router.navigateByUrl('/member_list');
   }
 }

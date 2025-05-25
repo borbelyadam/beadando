@@ -12,6 +12,10 @@ const routes: Routes = [
     component: MemberListComponent
   },
   {
+    path: 'member_list',
+    component: MemberListComponent
+  },
+  {
     path: 'member_form',
     component: MemberFormComponent
   },
